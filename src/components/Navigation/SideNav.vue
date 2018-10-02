@@ -61,6 +61,9 @@
             background-color: #6CAF41;
             border-color: #6CAF41;
             height:60px;
+            font-family: 'Open Sans', sans-serif;
+            -webkit-font-smoothing: antialiased;
+            -moz-osx-font-smoothing: grayscale;
             font-weight:700;
             font-size:16px;
             padding-top:17px;
@@ -78,6 +81,9 @@
             background-color: #209951;
             border-color: #209951;
             height:60px;
+            font-family: 'Open Sans', sans-serif;
+            -webkit-font-smoothing: antialiased;
+            -moz-osx-font-smoothing: grayscale;
             font-weight:700;
             font-size:16px;
             padding-top:17px;
@@ -94,6 +100,9 @@
             background-color: #147F3F;
             border-color: #147F3F;
             height:60px;
+            font-family: 'Open Sans', sans-serif;
+            -webkit-font-smoothing: antialiased;
+            -moz-osx-font-smoothing: grayscale;
             font-weight:700;
             font-size:16px;
             padding-top:17px;
