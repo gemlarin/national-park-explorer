@@ -34,7 +34,7 @@
 
   .sidenav-container{
       height:100vh;
-      background-color:#4EA558;
+      background-color:#147F3F;
   }
   .container{
     max-width:100% !important;
@@ -50,7 +50,7 @@
   }
 
   .page-viewport{
-    background-color:#f5f5f5
+    background-color:#EDEDED;
   }
 
 </style>

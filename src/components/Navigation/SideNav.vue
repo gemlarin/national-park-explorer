@@ -1,106 +1,107 @@
 <template>
-<div class="sidenav-container">
-    <div role="tablist" id="sidenav">
-        <router-link tag="div" to="/home">
-        <b-card no-body class="mb-1">
-            <b-card-header header-tag="header" class="p-1" role="tab">
-            <b-btn block href="#" v-b-toggle.accordion1 variant="info">Park Lookup</b-btn>
-            </b-card-header>
-            <b-collapse id="accordion1" visible accordion="my-accordion" role="tabpanel">
-            <b-card-body>
-                <p class="card-text">
-                I start opened because <code>visible</code> is <code>true</code>
-                </p>
-            </b-card-body>
-            </b-collapse>
-        </b-card>
-        </router-link>
-        <router-link tag="div" to="/test">
-        <b-card no-body class="mb-1">
-            <b-card-header header-tag="header" class="p-1" role="tab">
-            <b-btn block href="#" v-b-toggle.accordion2 variant="info">Test</b-btn>
-            </b-card-header>
-            <b-collapse id="accordion2" accordion="my-accordion" role="tabpanel">
-            <b-card-body>
-                <p class="card-text">
-                I start opened because <code>visible</code> is <code>true</code>
-                </p>
-            </b-card-body>
-            </b-collapse>
-        </b-card>
-        </router-link>
-        <b-card no-body class="mb-1">
-            <b-card-header header-tag="header" class="p-1" role="tab">
-            <b-btn block href="#" v-b-toggle.accordion3 variant="info">Accordion 3</b-btn>
-            </b-card-header>
-            <b-collapse id="accordion3" accordion="my-accordion" role="tabpanel">
-            <b-card-body>
-                   <p class="card-text">
-                I start opened because <code>visible</code> is <code>true</code>
-                </p>
-            </b-card-body>
-            </b-collapse>
-        </b-card>
+    <div class="sidenav-container">
+        <div role="tablist" id="sidenav">
+            <router-link tag="div" to="/">
+            <b-card no-body class="mb-1">
+                <b-card-header header-tag="header" class="p-1" role="tab">
+                <b-btn block href="#" v-b-toggle.accordion1 variant="info">NATIONAL PARKS</b-btn>
+                </b-card-header>
+                <b-collapse id="accordion1" visible accordion="my-accordion" role="tabpanel">
+                <b-card-body>
+                    <p class="card-text">
+                        I start opened because <code>visible</code> is <code>true</code>
+                    </p>
+                </b-card-body>
+                </b-collapse>
+            </b-card>
+            </router-link>
+            <router-link tag="div" to="/test">
+            <b-card no-body class="mb-1">
+                <b-card-header header-tag="header" class="p-1" role="tab">
+                <b-btn block href="#" v-b-toggle.accordion2 variant="info">TEST LINK</b-btn>
+                </b-card-header>
+                <b-collapse id="accordion2" accordion="my-accordion" role="tabpanel">
+                <b-card-body>
+                    <p class="card-text">
+                        I start opened because <code>visible</code> is <code>true</code>
+                    </p>
+                </b-card-body>
+                </b-collapse>
+            </b-card>
+            </router-link>
+            <b-card no-body class="mb-1">
+                <b-card-header header-tag="header" class="p-1" role="tab">
+                <b-btn block href="#" v-b-toggle.accordion3 variant="info">TEST LINK</b-btn>
+                </b-card-header>
+                <b-collapse id="accordion3" accordion="my-accordion" role="tabpanel">
+                <b-card-body>
+                    <p class="card-text">
+                        I start opened because <code>visible</code> is <code>true</code>
+                    </p>
+                </b-card-body>
+                </b-collapse>
+            </b-card>
         </div>
     </div>   
 </template>
 <script>
 
   export default {
-    name: 'sidenav',
-    methods:{
-        openpage(path){
-            this.$router.go(path)
-        }
-    }
+    name: 'sidenav'
   }
 </script>
 <style lang="scss">
 
     #sidenav{
-
         #accordion1 .card-body{
-            background-color: rgb(154, 194, 99);
+            background-color: #6CAF41;
         }
         > div:nth-child(1) header .btn-info {
             color: #fff;
-            background-color: rgb(154, 194, 99);
-            border-color: rgb(154, 194, 99);
+            background-color: #6CAF41;
+            border-color: #6CAF41;
             height:60px;
+            font-weight:700;
+            font-size:16px;
+            padding-top:17px;
             &:hover{
-                background-color: rgb(148, 187, 93);
-                border-color: rgb(148, 187, 93);
+                background-color: #67A340;
+                border-color: #67A340;
             }
+           
         }
-
         #accordion2 > .card-body{
-            background-color: #83b73a;
+            background-color: #209951;
         }
         > div:nth-child(2) header .btn-info {
             color: #fff;
-            background-color: #83b73a;
-            border-color: #83b73a;
+            background-color: #209951;
+            border-color: #209951;
             height:60px;
+            font-weight:700;
+            font-size:16px;
+            padding-top:17px;
             &:hover{
-                background-color: #7BAF3C;
-                border-color: #7BAF3C;
+                background-color: #22914E;
+                border-color: #22914E;
             }
         }
-
         #accordion3 > .card-body{
-            background-color: #4EA558;;
+            background-color: #147F3F;
         }
         > div:nth-child(3) header .btn-info {
             color: #fff;
-            background-color: #4EA558;
-            border-color: #4EA558;
+            background-color: #147F3F;
+            border-color: #147F3F;
             height:60px;
+            font-weight:700;
+            font-size:16px;
+            padding-top:17px;
             &:hover{
-                background-color: #439c4d;
-                border-color: #439c4d;
+                background-color: #12773B;
+                border-color: #12773B;
             }
         }
-            
         .card-header:first-child{
             border-radius: 0;
         }

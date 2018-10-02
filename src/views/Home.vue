@@ -1,6 +1,6 @@
 <template>
   <div class="home">
-    <h2>HOMES</h2>
+    <h2>PARK LIST</h2>
     <Parklist :payload="payload"/>
     <button class="btn btn-primary" v-on:click="submit()">load</button>
   </div>
