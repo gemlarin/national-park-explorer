@@ -29,3 +29,8 @@ export default {
 
 }
 </script>
+<style>
+  .home{
+    padding:10px 30px;
+  }
+</style>

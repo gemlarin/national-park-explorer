@@ -37,4 +37,5 @@ export default {
   ul{
     padding-left:0;
   }
+ 
 </style>
