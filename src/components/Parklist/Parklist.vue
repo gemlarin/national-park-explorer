@@ -1,11 +1,9 @@
 <template>
-    <div>
-  
-        <ul>
-          <Park :item="item" v-for="(item, index) in items" :key="index" />
-        </ul>
-
-    </div>
+  <div>
+      <ul>
+        <Park :item="item" v-for="(item, index) in items" :key="index" />
+      </ul>
+  </div>
 </template>
 
 <script>
@@ -21,7 +19,7 @@ export default {
   props: ['payload'],
   computed: {
     items(){
-      //the "data" JSON object conflicts with Vues built in data function, so rename it.
+      //BUG FIX: the "data" JSON object conflicts with Vues built in data function, so rename it.
       this.payloadData = JSON.parse(JSON.stringify(this.payload).split('"data":').join('"results":'));    
       return this.payloadData.results
     }

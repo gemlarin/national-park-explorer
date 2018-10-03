@@ -1,18 +1,17 @@
 <template>
   <div>
+    <SideNav />
     <div class="container">
       <div class="row no-gutters">
-        <div class="col-12 col-sm-3">
-          <div class="sidenav-container">
-            <div class="logo-block">
-              LOGO
-            </div>
-            <SideNav />
-          </div>
-        </div>
-        <div class="col-12 col-sm-9 page-viewport">
+
+        <div class="col-12 page-viewport">
           <Navigation />
-          <router-view/>
+          <transition
+            name="fade"
+            mode="out-in"
+          >
+            <router-view/>
+          </transition>
         </div>
       </div>
     </div>
@@ -30,12 +29,7 @@
     },
   }
 </script>
-<style >
-
-  .sidenav-container{
-      height:100vh;
-      background-color:#147F3F;
-  }
+<style lang="scss">
   .container{
     max-width:100% !important;
     margin:0 !important;
@@ -45,12 +39,26 @@
 
   .logo-block{
     background-color:#353535;
-    height:100px;
+    height:150px;
     display:block;
+    text-align:center;
+    img{
+      height:70px;
+      width:auto;
+      margin-top:50px;
+    }
   }
 
   .page-viewport{
     background-color:#EDEDED;
+    height:100vh;
+    margin-left:300px;
+  }
+
+  @media only screen and (max-width:991px){
+    .page-viewport{
+      margin-left:0;
+    }
   }
 
 </style>
