@@ -7,7 +7,7 @@
 
 <script>
 // @ is an alias to /src
-import Layout from '@/views/Layout.vue'
+import Layout from './views/Layout'
 
 export default {
   name: 'app',
@@ -21,6 +21,7 @@ export default {
   font-family: 'Bitter', serif;
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
+  overflow: hidden;
 }
 h1, h2, h3, h4, h5, h6, p{
    font-family: 'Bitter', serif;

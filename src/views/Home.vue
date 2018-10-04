@@ -1,6 +1,6 @@
 <template>
   <div class="home">
-    <h2>PARK LIST</h2>
+    <h4>PARK LIST</h4>
     <Parklist :payload="payload"/>
     <button class="btn btn-primary" v-on:click="submit(null, 'fort')">load</button>
   </div>
@@ -8,15 +8,20 @@
 
 <script>
 // @ is an alias to /src
-import Parklist from '@/components/Parklist/Parklist.vue'
+import Parklist from './../components/Parklist/Parklist'
 export default {
   name: 'home',
   data () {
     return {
-      payload: [],
+    
       state: null,
       query: null,
       limit: 4
+    }
+  },
+  computed:{
+    payload(){
+      return this.$store.state.parkPayload;
     }
   },
   methods:{
@@ -38,7 +43,7 @@ export default {
 
     this.axios
       .get(searchstring)
-      .then(response => (this.payload = response.data))
+      .then(response => (this.$store.commit('setCurrentPayload', response.data)))
     }
   },
   components:{
@@ -47,8 +52,13 @@ export default {
 
 }
 </script>
-<style>
+<style lang="scss">
   .home{
     padding:10px 30px;
+    h4{
+      font-family: 'Open Sans', sans-serif;
+      font-size:18px;
+    }
   }
+
 </style>

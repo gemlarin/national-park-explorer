@@ -5,7 +5,7 @@
       <div class="row no-gutters">
 
         <div class="col-12 page-viewport">
-          <Navigation />
+         
           <transition
             name="fade"
             mode="out-in"
@@ -18,8 +18,8 @@
   </div>
 </template>
 <script>
-  import SideNav from '@/components/Navigation/SideNav.vue'
-  import Navigation from '@/components/Navigation/Navigation.vue'
+  import SideNav from './../components/Navigation/SideNav.vue'
+  import Navigation from './../components/Navigation/Navigation.vue'
   export default {
 
     name: 'home',
@@ -52,7 +52,8 @@
   .page-viewport{
     background-color:#EDEDED;
     height:100vh;
-    margin-left:300px;
+    padding-top:30px;
+    padding-left:300px !important;
   }
 
   @media only screen and (max-width:991px){

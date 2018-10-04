@@ -54,7 +54,7 @@
 </template>
 <script>
     import {TweenMax, Power4} from 'gsap'
-    import ToggleSideNav from '@/components/Navigation/ToggleSideNav.vue'
+    import ToggleSideNav from './../Navigation/ToggleSideNav.vue'
     export default {
         name: 'sidenav',
         components: {
