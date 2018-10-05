@@ -11,13 +11,11 @@ export const store = new Vuex.Store({
       selectedState:null,
       queryTerm:null,
       queryTotal:null,
-      buttonLock:true
+      buttonLock:true,
+      favoriteParkReturn:[]
     },
     mutations:{
-      toggleSidebar (state) {
-        state.sidebarOpen = !state.sidebarOpen
-      },
-      addSelectedPark(state, val) {
+      addSelectedPark:(state, val) =>{
           let isInArray = state.selectedParks.indexOf(val);
           if(isInArray == -1){
             state.selectedParks.push(val);
@@ -25,14 +23,23 @@ export const store = new Vuex.Store({
             state.selectedParks.splice(isInArray, 1);
           }
       },
-      setCurrentPayload(state, val) {
+      clearSearch: (state, val) =>{
+        state.parkPayload = {},
+        state.selectedState = null,
+        state.queryTerm = null,
+        state.queryTotal = null
+      },
+      setCurrentPayload:(state, val) => {
         state.parkPayload = val;
       },
-      setSelectedState(state, val) {
+      setFavsData:(state, val) =>{
+        state.favoriteParkReturn.push(val)
+      },
+      setSelectedState: (state, val) => {
         state.selectedState = val;
         state.buttonLock = false;
       },
-      setQueryTerm(state, val) {
+      setQueryTerm: (state, val) => {
         state.queryTerm = val;
         if(state.queryTerm === null || state.queryTerm === 'Ocean'){
           state.buttonLock = true;
@@ -42,14 +49,11 @@ export const store = new Vuex.Store({
           state.buttonLock = false;
         }
       },
-      setQueryTotal(state, val) {
+      setQueryTotal: (state, val) => {
         state.queryTotal = val;
       },
-      clearSearch(state, val){
-        state.parkPayload = {},
-        state.selectedState = null,
-        state.queryTerm = null,
-        state.queryTotal = null
+      toggleSidebar:(state) => {
+        state.sidebarOpen = !state.sidebarOpen
       }
     },
     getters:{

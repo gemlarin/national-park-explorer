@@ -25,7 +25,7 @@
                         </b-collapse>
                     </b-card>
                     </router-link>
-                    <router-link tag="div" to="/test">
+                    <router-link tag="div" to="/favorites">
                     <b-card no-body class="mb-1">
                         <b-card-header header-tag="header" class="p-1" role="tab">
                         <b-btn block href="#" v-b-toggle.accordion2 variant="info"><img alt="park icon" class="tab-icon" src="./../../assets/icons/checklist.svg">FAVORITE PARKS</b-btn>

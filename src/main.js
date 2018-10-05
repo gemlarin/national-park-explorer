@@ -36,6 +36,7 @@ export const parkCodeBus = new Vue();
 export const initSearch = new Vue();
 export const isResultsBus = new Vue();
 export const clearSearchBus = new Vue();
+export const removeFavoritesBus = new Vue();
 
 const router = new VueRouter({
   routes,
@@ -49,7 +50,7 @@ const router = new VueRouter({
         return { x: 0, y: 0 }
     } 
 },
-  base:'/park-explorer',
+  base:'/',
   mode: 'history'
 });
 
