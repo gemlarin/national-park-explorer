@@ -17,7 +17,10 @@
                             <Dropdown />
                             <TextField />
                             <RadioButtons />
-                            <button :disabled="isDisabled" class="btn btn-primary animated zoomIn" v-on:click="submit()">SEARCH</button>
+                            <button class="btn btn-primary animated zoomIn" v-on:click="submit()">SEARCH</button>
+                            <div class="clear-container text-center">
+                                <a class="animated zoomIn clear" v-on:click="clear()">CLEAR SEARCH</a>
+                            </div>
                         </b-card-body>
                         </b-collapse>
                     </b-card>
@@ -60,6 +63,8 @@
     import TextField from './../FormComponents/TextField.vue'
     import RadioButtons from './../FormComponents/RadioButtons.vue'
     import {initSearch} from './../../main.js'
+    import {isResultsBus} from './../../main.js'
+    import {clearSearchBus} from './../../main.js'
     export default {
         name: 'sidenav',
         data () {
@@ -81,14 +86,25 @@
         },
         methods: {
             submit(){
-                this.$store.dispatch('toggleSidebar')
+                isResultsBus.$emit('hasResults', false);
+                if(this.checkWindowWidth() <= 991){
+                    this.$store.dispatch('toggleSidebar')
+                }
                 var statecode = this.$store.state.selectedState
                 var queryterm = this.$store.state.queryTerm
                 var querytotal = this.$store.state.queryTotal
                 initSearch.$emit('init',{statecode, queryterm, querytotal})
             },
+            clear(){
+               this.$store.state.clearSearch;
+               clearSearchBus.$emit('clearsearch');
+            },
+            checkWindowWidth(){
+                let ww = window.innerWidth;
+                return ww;
+            },
             checkWindow(){
-                let w = window.innerWidth;
+                var w = this.checkWindowWidth()
                 if(w > 991){
                     this.$store.state.sidebarOpen = false;
                     TweenMax.set(this.$el, {
@@ -101,16 +117,14 @@
                         x: this.$el.offsetWidth-300
                     })
                 }
+                return
             }
         },
         computed: {
             open () {
                 return this.$store.state.sidebarOpen
             },
-            isDisabled(){
-              
-                return this.$store.state.buttonLock
-            }
+           
         },
         watch: {
             open: function (open) {
@@ -131,6 +145,15 @@
         margin-right:10px;
         position:relative;
         margin-top:-3px;
+    }
+    .clear{
+        margin-top:15px;
+        display:inline-block;
+        font-family: 'Open Sans', sans-serif;
+        font-weight:700;
+        font-size:13px;
+        color:#fff !important;
+        cursor:pointer;
     }
     .sidenav-wrap{
         width:300px;

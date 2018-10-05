@@ -1,7 +1,8 @@
 <template>
-    <input class="form-control query animated zoomIn" v-model="queryTerm" placeholder="Search by keyword" type="text" /> 
+    <input class="form-control query animated zoomIn" v-on:click="clear" v-model="queryTerm" placeholder="Search by keyword" type="text" /> 
 </template>
 <script>
+    import {clearSearchBus} from './../../main.js'
     export default {
         name: 'drowndown',
         components: {
@@ -9,12 +10,22 @@
         },
         data () {
             return {
-                queryTerm:''
+                queryTerm:'Ocean'
             }
+        },
+        mounted(){
+            clearSearchBus.$on('clearsearch', () => {
+                this.clear();
+            });
         },
         watch: {
             queryTerm: function (val) {
                 this.$store.commit('setQueryTerm', val)
+            }
+        },
+        methods:{
+            clear(){
+                this.queryTerm = '';
             }
         }
     }

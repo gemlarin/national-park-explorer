@@ -5,11 +5,17 @@
     </label>
 </template>
 <script>
+    import {clearSearchBus} from './../../main.js'
     export default {
         data () {
             return {
                 selectedState:'',
             }
+        },
+        mounted(){
+            clearSearchBus.$on('clearsearch', () => {
+                this.selectedState='';
+            });
         },
         watch: {
             selectedState: function (val) {

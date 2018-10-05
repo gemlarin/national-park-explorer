@@ -14,14 +14,12 @@ export default {
   name: 'parklist',
   data () {
     return {
-      payloadData:this.payload,
-      addPark:[],
+      payloadData:this.payload
     }
   },
   mounted(){
     parkCodeBus.$on('addPark', code => {
-      this.addPark.push(code[0]);
-      this.$store.commit('addSelectedPark', code[0])
+      this.$store.commit('addSelectedPark', code)
     });
   },
   props: ['payload'],

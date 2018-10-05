@@ -34,18 +34,29 @@
 <script>
 // @ is an alias to /src
 import { parkCodeBus } from './../../main.js'
+import { isResultsBus } from './../../main.js'
 export default {
     name: 'park',
     data () {
         return {
-            checkedPark: []
+            checkedPark: [],
+            parkname: this.item.parkCode
         }
     },
     props: ['item'],
     watch: {
         checkedPark: function (val) {
-            parkCodeBus.$emit('addPark', val);
+            if(this.checkedPark.length === 1){
+                parkCodeBus.$emit('addPark', this.checkedPark[0]);
+            }
+            if(this.checkedPark.length === 0){
+              
+               parkCodeBus.$emit('addPark', this.parkname);
+            }
         }
+    },
+    mounted(){
+        isResultsBus.$emit('hasResults', true);
     }
 }
 </script>

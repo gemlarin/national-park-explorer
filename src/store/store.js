@@ -18,7 +18,12 @@ export const store = new Vuex.Store({
         state.sidebarOpen = !state.sidebarOpen
       },
       addSelectedPark(state, val) {
-        state.selectedParks.push(val);
+          let isInArray = state.selectedParks.indexOf(val);
+          if(isInArray == -1){
+            state.selectedParks.push(val);
+          }else if(isInArray > -1){
+            state.selectedParks.splice(isInArray, 1);
+          }
       },
       setCurrentPayload(state, val) {
         state.parkPayload = val;
@@ -39,7 +44,13 @@ export const store = new Vuex.Store({
       },
       setQueryTotal(state, val) {
         state.queryTotal = val;
-      } 
+      },
+      clearSearch(state, val){
+        state.parkPayload = {},
+        state.selectedState = null,
+        state.queryTerm = null,
+        state.queryTotal = null
+      }
     },
     getters:{
       sidebarOpen: state => state.sidebarOpen,
