@@ -113,6 +113,8 @@ export default {
             .load-map{
                 height:25px;
                 width:auto;
+                margin-top:13px;
+                margin-right:20px;
                 float:right;
                 img{
                    height:25px;

@@ -1,7 +1,6 @@
 import Vue from 'vue'
 import App from './App.vue'
 import VueRouter from 'vue-router'
-import Vuex from 'vuex'
 import { routes } from './routes'
 import { store } from './store/store'
 import BootstrapVue from 'bootstrap-vue'
@@ -34,6 +33,7 @@ Vue.use(VueScrollTo, {
  })
 
 export const parkCodeBus = new Vue();
+export const initSearch = new Vue();
 
 const router = new VueRouter({
   routes,
@@ -47,7 +47,7 @@ const router = new VueRouter({
         return { x: 0, y: 0 }
     } 
 },
-  base:'/',
+  base:'/park-explorer',
   mode: 'history'
 });
 

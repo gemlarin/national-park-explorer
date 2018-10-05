@@ -30,6 +30,14 @@
   }
 </script>
 <style lang="scss">
+
+
+ 
+      .btn-primary:focus, .btn-primary.focus, input:focus {
+        outline: none !important;
+        box-shadow: none !important;
+      }
+
   .container{
     max-width:100% !important;
     margin:0 !important;
@@ -54,11 +62,13 @@
     height:100vh;
     padding-top:30px;
     padding-left:300px !important;
+    overflow-x:scroll;
+    -webkit-overflow-scrolling: touch;
   }
 
   @media only screen and (max-width:991px){
     .page-viewport{
-      margin-left:0;
+      padding-left:0 !important;
     }
   }
 

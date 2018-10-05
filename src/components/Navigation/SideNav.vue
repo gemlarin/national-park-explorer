@@ -10,13 +10,14 @@
                     <router-link tag="div" to="/">
                     <b-card no-body class="mb-1">
                         <b-card-header header-tag="header" class="p-1" role="tab">
-                        <b-btn block href="#" v-b-toggle.accordion1 variant="info">NATIONAL PARKS</b-btn>
+                        <b-btn block href="#" v-b-toggle.accordion1 variant="info"><img alt="park icon" class="tab-icon" src="./../../assets/icons/tent.svg">NATIONAL PARKS</b-btn>
                         </b-card-header>
                         <b-collapse id="accordion1" visible accordion="my-accordion" role="tabpanel">
                         <b-card-body>
-                            <p class="card-text">
-                                I start opened because visible is true.
-                            </p>
+                            <Dropdown />
+                            <TextField />
+                            <RadioButtons />
+                            <button :disabled="isDisabled" class="btn btn-primary animated zoomIn" v-on:click="submit()">SEARCH</button>
                         </b-card-body>
                         </b-collapse>
                     </b-card>
@@ -24,7 +25,7 @@
                     <router-link tag="div" to="/test">
                     <b-card no-body class="mb-1">
                         <b-card-header header-tag="header" class="p-1" role="tab">
-                        <b-btn block href="#" v-b-toggle.accordion2 variant="info">TEST LINK</b-btn>
+                        <b-btn block href="#" v-b-toggle.accordion2 variant="info"><img alt="park icon" class="tab-icon" src="./../../assets/icons/checklist.svg">FAVORITE PARKS</b-btn>
                         </b-card-header>
                         <b-collapse id="accordion2" accordion="my-accordion" role="tabpanel">
                         <b-card-body>
@@ -37,7 +38,7 @@
                     </router-link>
                     <b-card no-body class="mb-1">
                         <b-card-header header-tag="header" class="p-1" role="tab">
-                        <b-btn block href="#" v-b-toggle.accordion3 variant="info">TEST LINK</b-btn>
+                        <b-btn block href="#" v-b-toggle.accordion3 variant="info"><img alt="park icon" class="tab-icon" src="./../../assets/icons/map.svg">MY MAPS</b-btn>
                         </b-card-header>
                         <b-collapse id="accordion3" accordion="my-accordion" role="tabpanel">
                         <b-card-body>
@@ -54,11 +55,23 @@
 </template>
 <script>
     import {TweenMax, Power4} from 'gsap'
+    import Dropdown from './../FormComponents/Dropdown.vue'
     import ToggleSideNav from './../Navigation/ToggleSideNav.vue'
+    import TextField from './../FormComponents/TextField.vue'
+    import RadioButtons from './../FormComponents/RadioButtons.vue'
+    import {initSearch} from './../../main.js'
     export default {
         name: 'sidenav',
+        data () {
+            return {
+           
+            }
+        },
         components: {
-            ToggleSideNav
+            ToggleSideNav,
+            Dropdown,
+            TextField,
+            RadioButtons
         },
         mounted () {
             this.checkWindow();
@@ -67,6 +80,13 @@
             });
         },
         methods: {
+            submit(){
+                this.$store.dispatch('toggleSidebar')
+                var statecode = this.$store.state.selectedState
+                var queryterm = this.$store.state.queryTerm
+                var querytotal = this.$store.state.queryTotal
+                initSearch.$emit('init',{statecode, queryterm, querytotal})
+            },
             checkWindow(){
                 let w = window.innerWidth;
                 if(w > 991){
@@ -86,6 +106,10 @@
         computed: {
             open () {
                 return this.$store.state.sidebarOpen
+            },
+            isDisabled(){
+              
+                return this.$store.state.buttonLock
             }
         },
         watch: {
@@ -100,13 +124,21 @@
     }
 </script>
 <style lang="scss">
-
+    .tab-icon{
+        height:25px;
+        width:auto;
+        margin-left:7px;
+        margin-right:10px;
+        position:relative;
+        margin-top:-3px;
+    }
     .sidenav-wrap{
         width:300px;
         position:absolute;
         z-index:500;
         top:0;
         left:-300px;
+
     }
     .sidenav-container{
         height:calc(100vh - 150px);
@@ -124,6 +156,35 @@
         .btn{
             text-align:left;
         }
+        .btn{
+            &.btn-primary{
+                text-align:center; 
+                width:100%;
+                padding-top:11px;
+                padding-bottom:11px;
+                margin-top:20px;
+                background-color: #a5de7a;
+                font-size:12px !important;
+                font-family: 'Open Sans', sans-serif;
+                font-weight:700;
+                cursor:pointer;
+                border-radius:3px;
+                border-color:#a5de7a;
+                color:#07803c;
+                &:hover{
+                    background-color: #95d167;
+                    border-color:#72a74a;
+                    color:#07803c;
+                }
+                &:visited{
+                   border-color:#a5de7a; 
+                }
+                &:disabled{
+                   opacity:.5;
+                   cursor:not-allowed;
+                }
+            }
+        }
         #accordion1 .card-body{
             background-color: #6CAF41;
         }
@@ -133,8 +194,6 @@
             border-color: #6CAF41;
             height:60px;
             font-family: 'Open Sans', sans-serif;
-            -webkit-font-smoothing: antialiased;
-            -moz-osx-font-smoothing: grayscale;
             font-weight:700;
             font-size:16px;
             padding-top:17px;
