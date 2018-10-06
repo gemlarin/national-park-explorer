@@ -18,24 +18,22 @@ export default {
         payloadData:[]
     }
   },
-  mounted(){
-
-        removeFavoritesBus.$on('favorite', index => {
+  beforeMount(){
+    removeFavoritesBus.$on('favorite', index => {
              this.payloadData.splice(index,1)
-        });
+    });
     
-        let data = this.$store.state.selectedParks
-        data.forEach((element) =>{
-        let searchstring = "https://developer.nps.gov/api/v1/parks?parkCode=" + element + "&api_key=JOFZniE52Vrp3RXceByrGRcvqCoiS1UBAcb6Dj5w";
+    let data = this.$store.state.selectedParks
+    data.forEach((element) =>{
+      let searchstring = "https://developer.nps.gov/api/v1/parks?parkCode=" + element + "&api_key=JOFZniE52Vrp3RXceByrGRcvqCoiS1UBAcb6Dj5w";
 
-         this.axios
-        .get(searchstring)
-        .then(response => {
-            var retd = JSON.parse(JSON.stringify(response.data).split('"data":').join('"results":'));    
-            this.payloadData.push(retd.results[0])
-        });
-        });
-    
+      this.axios
+      .get(searchstring)
+      .then(response => {
+          var retd = JSON.parse(JSON.stringify(response.data).split('"data":').join('"results":'));    
+          this.payloadData.push(retd.results[0])
+      });
+    });
   },
   computed: {
     items(){

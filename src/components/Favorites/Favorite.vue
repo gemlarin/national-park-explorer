@@ -1,38 +1,39 @@
 <template>
-    <li class="list-group-item">
-        <div class="head">
-            <h3>{{ item.name }}</h3>
-            <div class="load-map" role="button"><img src="./../../assets/icons/placeholder.svg" alt="find on map"/></div>
-        </div>
-        <div class="row" style="margin-top:55px;">
-            <div class="col-12">
-                <h6>{{ item.states }}: {{ item.designation }}</h6>
+    <div class="favorite">
+        <li class="list-group-item">
+            <div class="head">
+                <h3>{{ item.name }}</h3>
+                <div class="load-map" role="button"><img src="./../../assets/icons/placeholder.svg" alt="find on map"/></div>
             </div>
-        </div>
-        <div class="row">
-            <div class="col-6">
-                <h5>Description</h5>
-                <p>{{ item.description }}</p>
-            </div>
-            <div class="col-6">
-                <h5>Climate</h5>
-                <p>{{ item.weatherInfo }}</p>
-            </div>
-        </div>
-        <div class="row">
-            <div class="col-12">
-                <div class="form-check">
-                    <label>
-                        <input type="checkbox" v-model="checkedPark" v-bind:value="item.parkCode" name="check"> <span class="label-text"><span class="small">REMOVE</span></span>
-                    </label>
+            <div class="row" style="margin-top:55px;">
+                <div class="col-12">
+                    <h6>{{ item.states }}: {{ item.designation }}</h6>
                 </div>
             </div>
-        </div>
-    </li>
+            <div class="row">
+                <div class="col-6">
+                    <h5>Description</h5>
+                    <p>{{ item.description }}</p>
+                </div>
+                <div class="col-6">
+                    <h5>Climate</h5>
+                    <p>{{ item.weatherInfo }}</p>
+                </div>
+            </div>
+            <div class="row">
+                <div class="col-12">
+                    <div class="form-check">
+                        <label>
+                            <input type="checkbox" v-model="checkedPark" name="check"> <span class="label-text"><span class="small">REMOVE</span></span>
+                        </label>
+                    </div>
+                </div>
+            </div>
+        </li>
+    </div>
 </template>
 
 <script>
-// @ is an alias to /src
 import { parkCodeBus } from './../../main.js'
 import { isResultsBus } from './../../main.js'
 import { removeFavoritesBus } from './../../main.js'
@@ -42,14 +43,14 @@ export default {
     data () {
         return {
             checkedPark: [],
-            parkname: this.item.parkCode,
-
+            parkname: this.item.parkCode
         }
     },
     props: ['item', 'index'],
     watch: {
         checkedPark: function () {
-            removeFavoritesBus.$emit('favorite', this.index);
+            this.$store.commit('addSelectedPark', this.parkname)
+            removeFavoritesBus.$emit('favorite', this.parkname);
         }
     },
     mounted(){
@@ -58,6 +59,10 @@ export default {
 }
 </script>
 <style lang="scss">
+    .favorite{
+        padding-left:30px;
+        padding-right:30px;
+    }
     .list-group-item{
         border-radius:5px !important;
         margin-top:5px;
@@ -97,7 +102,7 @@ export default {
             letter-spacing:-.02em;
             position:relative;
             top:-6px;
-            color:#209951;;
+            color:#209951;
         }
 
         .head{

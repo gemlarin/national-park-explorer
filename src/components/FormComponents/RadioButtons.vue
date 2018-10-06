@@ -37,7 +37,7 @@
         },
         watch: {
             queryTotal: function (val) {
-                this.$store.commit('setQueryTotal', val)
+                this.$store.commit('setQueryTotal', val - 1)
             }
         }
     }

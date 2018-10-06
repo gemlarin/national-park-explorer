@@ -41,11 +41,20 @@ export default {
       return this.$store.state.selectedState;
     },
   },
-  mounted() {
+  watch: {
+    '$route.params.id': function (id) {
+      this.doStuff()
+    }
+  },
+  beforeDestroy(){
+    initSearch.$off("init");
+    isResultsBus.$off("hasResults");
+  },
+  created() {
     initSearch.$on("init", data => {
-      var statecode = data.statecode;
-      var queryterm = data.queryterm;
-      var querytotal = data.querytotal;
+      let statecode = data.statecode;
+      let queryterm = data.queryterm;
+      let querytotal = data.querytotal;
       this.submit(statecode, queryterm, querytotal);
     });
 
@@ -57,22 +66,24 @@ export default {
         this.results = false;
       }
     });
-
-
-    let search =
-      "https://developer.nps.gov/api/v1/parks?limit=5&q=ocean" +
-      "&api_key=" +
-      this.key;
-    this.$store.commit("setQueryTerm", "Ocean");
-    this.axios
-      .get(search)
-      .then(response => this.$store.commit("setCurrentPayload", response.data));
+    this.load();
   },
   methods: {
+    load(){
+
+    let search =
+      "https://developer.nps.gov/api/v1/parks?limit=" + this.limit + "&q=ocean" +
+      "&api_key=" +
+      this.key;
+      this.$store.commit("setQueryTerm", "Ocean");
+      this.axios
+      .get(search)
+      .then(response => this.$store.commit("setCurrentPayload", response.data));
+    },
     submit(statecode, queryterm, querytotal) {
       this.state = statecode;
       this.query = queryterm;
-      this.limit = querytotal - 1;
+      this.limit = querytotal;
       let searchstring = null;
 
       if (querytotal == 0) {

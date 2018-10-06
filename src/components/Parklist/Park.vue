@@ -21,9 +21,12 @@
         </div>
         <div class="row">
             <div class="col-12">
-                <div class="form-check">
-                    <label>
-                        <input type="checkbox" v-model="checkedPark" v-bind:value="item.parkCode" name="check"> <span class="label-text"><span class="small">FAVORITE</span></span>
+                <div class="liked" v-if="!display">
+                    <img src="./../../assets/icons/like.svg" alt="liked" />
+                </div>
+                <div class="form-check" v-if="display">
+                     <label>
+                        <input type="checkbox" :id="item.parkCode" v-model="checkedPark" name="check"> <span class="label-text"><span class="small">FAVORITE</span></span>
                     </label>
                 </div>
             </div>
@@ -39,28 +42,45 @@ export default {
     name: 'park',
     data () {
         return {
-            checkedPark: [],
-            parkname: this.item.parkCode
+            checkedPark: false,
+            parkname: this.item.parkCode,
+            display:true
         }
     },
     props: ['item'],
-    watch: {
-        checkedPark: function (val) {
-            if(this.checkedPark.length === 1){
-                parkCodeBus.$emit('addPark', this.checkedPark[0]);
-            }
-            if(this.checkedPark.length === 0){
-              
-               parkCodeBus.$emit('addPark', this.parkname);
+    methods:{
+        fetchData: function(){
+            //grab the list of checked parks
+            let checklist = this.$store.state.selectedParks
+            let idx = checklist.indexOf(this.parkname)
+            if(idx > -1){
+                this.display = false;
+            }else if(idx = -1){
+                this.display = true;
             }
         }
+    },
+    watch: {
+        checkedPark: function (val) {
+           parkCodeBus.$emit('addPark', this.parkname);
+        }
+    },
+    created () {
+       this.fetchData();    
     },
     mounted(){
         isResultsBus.$emit('hasResults', true);
     }
 }
+
+       
 </script>
 <style lang="scss">
+
+    .liked img{
+        height:25px;
+        width:auto;
+    }
     .list-group-item{
         border-radius:5px !important;
         margin-top:5px;
@@ -134,9 +154,9 @@ export default {
             }
         }
         
-        .form-check{
-            padding-left:0;
-        }
+       .form-check{
+           padding-left:0;
+       }
         input[type="checkbox"], input[type="radio"]{
             position: absolute;
             right: 9000px;

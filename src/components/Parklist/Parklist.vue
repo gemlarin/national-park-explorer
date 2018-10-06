@@ -17,6 +17,9 @@ export default {
       payloadData:this.payload
     }
   },
+  beforeDestroy(){
+    parkCodeBus.$off('addPark');
+  },
   mounted(){
     parkCodeBus.$on('addPark', code => {
       this.$store.commit('addSelectedPark', code)
@@ -41,9 +44,5 @@ export default {
   ul.list-group{
     padding-left:0;
   }
-  .pkwrap{
-    //overflow-x: scroll;
-    //height:85vh;
-  }
- 
+  
 </style>

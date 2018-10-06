@@ -3,15 +3,8 @@
     <SideNav />
     <div class="container">
       <div class="row no-gutters">
-
         <div class="col-12 page-viewport">
-         
-          <transition
-            name="fade"
-            mode="out-in"
-          >
-            <router-view/>
-          </transition>
+            <router-view :key="$route.fullPath"/>
         </div>
       </div>
     </div>
