@@ -1,6 +1,5 @@
 <template>
   <div class="pkwrap">
-    <h3 v-if="showme">No results for this query.</h3>
       <ul class="list-group">
         <Park :item="item" v-for="(item, index) in items" :key="index" />
       </ul>
@@ -15,8 +14,7 @@ export default {
   name: 'parklist',
   data () {
     return {
-      payloadData:this.payload,
-      showme:false
+      payloadData:this.payload
     }
   },
   computed:{
@@ -26,12 +24,6 @@ export default {
   },
   beforeDestroy(){
     parkCodeBus.$off('addPark');
-  },
-  beforeUpdate(){
-    if(this.payloadData.results.length < 1){
-      this.showme = true;
-    }
-   
   },
   mounted(){
     parkCodeBus.$on('addPark', code => {

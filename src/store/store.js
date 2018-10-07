@@ -45,7 +45,7 @@ export const store = new Vuex.Store({
       },
       setSelectedState: (state, val) => {
         state.selectedState = val;
-        state.buttonLock = false;
+       // state.buttonLock = false;
       },
       setQueryTerm: (state, val) => {
         state.queryTerm = val;
@@ -75,5 +75,5 @@ export const store = new Vuex.Store({
         context.commit('toggleSidebar')
       },
     },
-    //plugins: [vuexLocal.plugin]
+   plugins: [vuexLocal.plugin]
 })

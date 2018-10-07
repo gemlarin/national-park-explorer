@@ -1,7 +1,8 @@
 <template>
   <div class="home">
-    <h4>Park List <span v-show="state !== null">/</span> {{ state }} <span v-show="queryterm !== ''">/</span> {{ queryterm }}</h4>
+    <h4>Park List <span v-show="$store.state.selectedState !== null">/</span> {{ $store.state.selectedState }} <span v-show="queryterm !== ''">/</span> {{ queryterm }}</h4>
     <p>Total results: {{ payload.data.length }}</p>
+    <h3 v-if="payload.data.length < 1">No results for this query.</h3>
     <Parklist :payload="payload"/>
   </div>
 </template>
@@ -10,16 +11,18 @@
 // @ is an alias to /src
 import { initSearch } from "./../main.js";
 import { parkCodeBus } from "./../main.js";
+import { clearSearchBus } from "./../main.js";
 import Parklist from "./../components/Parklist/Parklist";
 export default {
   name: "home",
   data() {
     return {
       results: false,
+      selectedstate: this.$store.state.selectedState,
       state: null,
       query: null,
       limit: 4,
-      key: "JOFZniE52Vrp3RXceByrGRcvqCoiS1UBAcb6Dj5w"
+      key: process.env.NPS_KEY
     };
   },
   computed: {
@@ -44,7 +47,13 @@ export default {
     
   },
   beforeDestroy(){
-    initSearch.$off("init");;
+    initSearch.$off("init");
+    
+  },
+  mounted(){
+      clearSearchBus.$on('clearsearch', () => {
+          this.$store.commit('setSelectedState', null)
+      });
   },
   created() {
         initSearch.$on("init", data => {
@@ -140,7 +149,9 @@ export default {
         .get(searchstring)
         .then(response =>
           this.$store.commit("setCurrentPayload", response.data)
-        )
+        )  .catch(function (error) {
+            alert('Please choose a state or search term.');
+          })
     }
   },
   components: {

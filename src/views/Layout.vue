@@ -19,7 +19,7 @@
     components: {
       SideNav,
       Navigation
-    },
+    }
   }
 </script>
 <style lang="scss">

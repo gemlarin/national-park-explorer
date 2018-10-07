@@ -1,6 +1,6 @@
 <template>
      <label class="option">
-      <input type="radio" name="option" v-bind:value="state" v-model="selectedState">
+      <input type="radio" @click="setstate" name="option" v-bind:value="state" v-model="selectedState">
       <span class="title animated fadeIn">{{ state }}</span>
     </label>
 </template>
@@ -9,18 +9,19 @@
     export default {
         data () {
             return {
-                selectedState:'',
+                _state:'',
+                selectedState:''
+            }
+        },
+        methods:{
+            setstate(){
+                this.$store.commit('setSelectedState', this.state)
             }
         },
         mounted(){
             clearSearchBus.$on('clearsearch', () => {
                 this.selectedState='';
             });
-        },
-        watch: {
-            selectedState: function (val) {
-                this.$store.commit('setSelectedState', val)
-            }
         },
         name: 'statelist',
         props:['state']

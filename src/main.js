@@ -38,6 +38,8 @@ export const isResultsBus = new Vue();
 export const clearSearchBus = new Vue();
 export const removeFavoritesBus = new Vue();
 
+require('dotenv').config()
+
 const router = new VueRouter({
   routes,
   scrollBehavior(to, from, savedPosition) {
@@ -53,7 +55,7 @@ const router = new VueRouter({
   base:'/',
   mode: 'history'
 });
-
+Vue.config.errorHandler = function(err, vm, info) { console.log('error: :', err) }
 Vue.use(VueAxios, axios)
 Vue.use(BootstrapVue);
 Vue.use(Meta);

@@ -10,6 +10,9 @@ module.exports = {
     filename: 'build.js'
   },
   mode: 'development',
+  node: {
+    fs: 'empty'
+  },
   optimization: {
     minimizer: [
       // we specify a custom UglifyJsPlugin here to get source maps in production
