@@ -18,6 +18,7 @@ export const store = new Vuex.Store({
       queryTerm:null,
       queryTotal:4,
       buttonLock:true,
+      initialLoad:true,
       favoriteParkReturn:[]
     },
     mutations:{
@@ -29,6 +30,7 @@ export const store = new Vuex.Store({
             state.selectedParks.splice(isInArray, 1);
           }
       },
+ 
       clearSearch: (state, val) =>{
         state.parkPayload = {},
         state.selectedState = null,
@@ -73,5 +75,5 @@ export const store = new Vuex.Store({
         context.commit('toggleSidebar')
       },
     },
-    plugins: [vuexLocal.plugin]
+    //plugins: [vuexLocal.plugin]
 })

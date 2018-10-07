@@ -1,5 +1,6 @@
 <template>
   <div class="pkwrap">
+    <h3 v-if="showme">No results for this query.</h3>
       <ul class="list-group">
         <Park :item="item" v-for="(item, index) in items" :key="index" />
       </ul>
@@ -14,11 +15,23 @@ export default {
   name: 'parklist',
   data () {
     return {
-      payloadData:this.payload
+      payloadData:this.payload,
+      showme:false
+    }
+  },
+  computed:{
+    showme(){
+      return this.showme
     }
   },
   beforeDestroy(){
     parkCodeBus.$off('addPark');
+  },
+  beforeUpdate(){
+    if(this.payloadData.results.length < 1){
+      this.showme = true;
+    }
+   
   },
   mounted(){
     parkCodeBus.$on('addPark', code => {
@@ -27,9 +40,10 @@ export default {
   },
   props: ['payload'],
   computed: {
+
     items(){
       //BUG FIX: the "data" JSON object conflicts with Vues built in data function, so rename it.
-      this.payloadData = JSON.parse(JSON.stringify(this.payload).split('"data":').join('"results":'));    
+      this.payloadData = JSON.parse(JSON.stringify(this.payload).split('"data":').join('"results":'));  
       return this.payloadData.results
     }
   },

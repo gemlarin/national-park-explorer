@@ -1,8 +1,8 @@
 <template>
   <div class="home">
     <h4>Park List <span v-show="state !== null">/</span> {{ state }} <span v-show="queryterm !== ''">/</span> {{ queryterm }}</h4>
+    <p>Total results: {{ payload.data.length }}</p>
     <Parklist :payload="payload"/>
-   <h5 v-show="hasResults">No results for this query.</h5>
   </div>
 </template>
 
@@ -10,7 +10,6 @@
 // @ is an alias to /src
 import { initSearch } from "./../main.js";
 import { parkCodeBus } from "./../main.js";
-import { isResultsBus } from "./../main.js";
 import Parklist from "./../components/Parklist/Parklist";
 export default {
   name: "home",
@@ -42,32 +41,26 @@ export default {
     },
   },
   watch: {
-    '$route.params.id': function (id) {
-      this.doStuff()
-    }
+    
   },
   beforeDestroy(){
-    initSearch.$off("init");
-    isResultsBus.$off("hasResults");
+    initSearch.$off("init");;
   },
   created() {
-    initSearch.$on("init", data => {
-      let statecode = data.statecode;
-      let queryterm = data.queryterm;
-      let querytotal = data.querytotal;
-      this.submit(statecode, queryterm, querytotal);
-    });
+        initSearch.$on("init", data => {
+          let statecode = data.statecode;
+          let queryterm = data.queryterm;
+          let querytotal = data.querytotal;
+          this.submit(statecode, queryterm, querytotal);
+        });
 
-    isResultsBus.$on("hasResults", (data) => {
-      if(data === true){
-        this.results = true;
-      }
-      if(data === false){
-        this.results = false;
-      }
-    });
-    this.load();
+    if(this.$store.state.initialLoad == true){
+      this.$store.state.initialLoad = false;
+          this.load();
+    }
+   
   },
+
   methods: {
     load(){
 
@@ -78,7 +71,7 @@ export default {
       this.$store.commit("setQueryTerm", "Ocean");
       this.axios
       .get(search)
-      .then(response => this.$store.commit("setCurrentPayload", response.data));
+      .then(response => this.$store.commit("setCurrentPayload", response.data))
     },
     submit(statecode, queryterm, querytotal) {
       this.state = statecode;
@@ -147,7 +140,7 @@ export default {
         .get(searchstring)
         .then(response =>
           this.$store.commit("setCurrentPayload", response.data)
-        );
+        )
     }
   },
   components: {

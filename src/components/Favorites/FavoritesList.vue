@@ -18,12 +18,25 @@ export default {
         payloadData:[]
     }
   },
+  beforeDestroy(){
+    removeFavoritesBus.$off('favorite')
+  },
   beforeMount(){
     removeFavoritesBus.$on('favorite', index => {
-             this.payloadData.splice(index,1)
+             //this.payloadData.splice(index,1)
+             this.payloadData=[]
+             this.$store.commit('addSelectedPark', index)
+             this.load();
     });
     
-    let data = this.$store.state.selectedParks
+    
+  },
+  mounted(){
+    this.load()
+  },
+  methods:{
+    load(){
+      let data = this.$store.state.selectedParks
     data.forEach((element) =>{
       let searchstring = "https://developer.nps.gov/api/v1/parks?parkCode=" + element + "&api_key=JOFZniE52Vrp3RXceByrGRcvqCoiS1UBAcb6Dj5w";
 
@@ -34,6 +47,7 @@ export default {
           this.payloadData.push(retd.results[0])
       });
     });
+    }
   },
   computed: {
     items(){

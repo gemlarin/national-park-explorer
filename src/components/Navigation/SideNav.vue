@@ -32,9 +32,11 @@
                         </b-card-header>
                         <b-collapse id="accordion2" accordion="my-accordion" role="tabpanel">
                         <b-card-body>
-                            <p class="card-text">
+                            <div class="animated zoomIn">
+                                <p class="card-text">
                                 Bacon ipsum dolor amet tongue chicken ball tip kevin, leberkas pork chop landjaeger short ribs pork belly t-bone. Tail bresaola picanha tri-tip tenderloin salami. Beef ham hock sirloin shankle beef ribs hamburger corned beef. Chicken andouille tenderloin biltong. Shoulder tenderloin pork beef, meatloaf brisket buffalo t-bone sausage strip steak leberkas tri-tip.
-                            </p>
+                                </p>
+                            </div>
                         </b-card-body>
                         </b-collapse>
                     </b-card>
@@ -158,7 +160,7 @@
     .sidenav-wrap{
         width:300px;
         position:absolute;
-        z-index:500;
+        z-index:501;
         top:0;
         left:-300px;
 
@@ -166,6 +168,10 @@
     .sidenav-container{
         height:calc(100vh - 150px);
         background-color:#39b54a;
+    }
+    .logo-block{
+        position:relative;
+        z-index:501;
     }
 
     @media only screen and (max-width:991px){

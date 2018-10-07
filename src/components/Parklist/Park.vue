@@ -38,6 +38,7 @@
 // @ is an alias to /src
 import { parkCodeBus } from './../../main.js'
 import { isResultsBus } from './../../main.js'
+import {resetBus} from './../../main.js' 
 export default {
     name: 'park',
     data () {
@@ -65,11 +66,19 @@ export default {
            parkCodeBus.$emit('addPark', this.parkname);
         }
     },
-    created () {
-       this.fetchData();    
+    created() {
+       this.fetchData();  
     },
     mounted(){
+
         isResultsBus.$emit('hasResults', true);
+     
+    },
+    updated(){
+        //alert('parkname: ', this.item.parkCode)
+        this.parkname = ''
+        this.parkname = this.item.parkCode;
+        this.fetchData(); 
     }
 }
 

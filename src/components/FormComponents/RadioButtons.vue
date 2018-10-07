@@ -15,7 +15,7 @@
             <label class="radio-label" for="three"><span class="small">25</span></label>
         </div>
         <div class="radio radio-button-wrapper">
-            <input type="radio" id="four" name="total" value="0" v-model="queryTotal">
+            <input type="radio" id="four" name="total" value="1" v-model="queryTotal">
             <label class="radio-label" for="four"><span class="small">All</span></label>
         </div>
     </div>
