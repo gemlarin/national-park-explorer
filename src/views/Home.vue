@@ -12,6 +12,7 @@
 import { initSearch } from "./../main.js";
 import { parkCodeBus } from "./../main.js";
 import { clearSearchBus } from "./../main.js";
+import { NPS_KEY } from './../components/appdata/keys.js'
 import Parklist from "./../components/Parklist/Parklist";
 export default {
   name: "home",
@@ -22,7 +23,7 @@ export default {
       state: null,
       query: null,
       limit: 4,
-      key: process.env.NPS_KEY
+      key: NPS_KEY
     };
   },
   computed: {

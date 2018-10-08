@@ -30,7 +30,9 @@ export const store = new Vuex.Store({
             state.selectedParks.splice(isInArray, 1);
           }
       },
- 
+      removeAllFavorites:(state, val) => {
+        state.selectedParks.splice(0);
+      },
       clearSearch: (state, val) =>{
         state.parkPayload = {},
         state.selectedState = null,
@@ -74,6 +76,9 @@ export const store = new Vuex.Store({
       toggleSidebar (context) {
         context.commit('toggleSidebar')
       },
+      removeAllFavorites(context){
+        context.commit('removeAllFavorites')
+      }
     },
-   plugins: [vuexLocal.plugin]
+   //plugins: [vuexLocal.plugin]
 })

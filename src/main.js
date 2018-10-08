@@ -37,6 +37,7 @@ export const initSearch = new Vue();
 export const isResultsBus = new Vue();
 export const clearSearchBus = new Vue();
 export const removeFavoritesBus = new Vue();
+export const clearAllFavoritesBus = new Vue();
 
 require('dotenv').config()
 

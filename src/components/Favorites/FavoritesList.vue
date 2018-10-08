@@ -10,12 +10,15 @@
 
 import Favorite from './Favorite'
 import { removeFavoritesBus } from './../../main.js'
+import { clearAllFavoritesBus } from './../../main.js'
+import { NPS_KEY } from './../appdata/keys.js'
 export default {
   name: 'favorite-list',
   data () {
     return {
         favorites:[],
-        payloadData:[]
+        payloadData:[],
+        key: NPS_KEY
     }
   },
   beforeDestroy(){
@@ -23,12 +26,13 @@ export default {
   },
   beforeMount(){
     removeFavoritesBus.$on('favorite', index => {
-             //this.payloadData.splice(index,1)
-             this.payloadData=[]
-             this.$store.commit('addSelectedPark', index)
-             this.load();
+      this.payloadData=[]
+      this.$store.commit('addSelectedPark', index)
+      this.load();
     });
-    
+    clearAllFavoritesBus.$on('clear', index => {
+      this.payloadData=[]
+    });
     
   },
   mounted(){
@@ -38,7 +42,7 @@ export default {
     load(){
       let data = this.$store.state.selectedParks
     data.forEach((element) =>{
-      let searchstring = "https://developer.nps.gov/api/v1/parks?parkCode=" + element + "&api_key=JOFZniE52Vrp3RXceByrGRcvqCoiS1UBAcb6Dj5w";
+      let searchstring = "https://developer.nps.gov/api/v1/parks?parkCode=" + element + "&api_key=" + this.key;
 
       this.axios
       .get(searchstring)

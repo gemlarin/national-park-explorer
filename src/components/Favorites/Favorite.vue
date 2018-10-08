@@ -50,17 +50,10 @@ export default {
     watch: {
         checkedPark: function () {
             removeFavoritesBus.$emit('favorite', this.parkname);
-            //this.$store.commit('addSelectedPark', this.parkname)
         }
     },
     mounted(){
         isResultsBus.$emit('hasResults', true);
-    },
-    updated(){
-        //alert('parkname: ', this.item.parkCode)
-        //this.parkname = ''
-        //this.parkname = this.item.parkCode;
-        //this.fetchData(); 
     }
 }
 </script>

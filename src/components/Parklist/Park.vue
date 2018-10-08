@@ -70,12 +70,9 @@ export default {
        this.fetchData();  
     },
     mounted(){
-
         isResultsBus.$emit('hasResults', true);
-     
     },
     updated(){
-        //alert('parkname: ', this.item.parkCode)
         this.parkname = ''
         this.parkname = this.item.parkCode;
         this.fetchData(); 

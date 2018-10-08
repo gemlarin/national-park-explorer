@@ -34,8 +34,12 @@
                         <b-card-body>
                             <div class="animated zoomIn">
                                 <p class="card-text">
-                                Bacon ipsum dolor amet tongue chicken ball tip kevin, leberkas pork chop landjaeger short ribs pork belly t-bone. Tail bresaola picanha tri-tip tenderloin salami. Beef ham hock sirloin shankle beef ribs hamburger corned beef. Chicken andouille tenderloin biltong. Shoulder tenderloin pork beef, meatloaf brisket buffalo t-bone sausage strip steak leberkas tri-tip.
+                                You have selected {{ totalFavorites }} favorite parks.  You can remove a favorite by clicking the remove option. To remove all favorites at once, use the remove all option below. 
                                 </p>
+                                <div class="removeBtn" @click="removeAllFavorites">
+
+                                </div>
+                                <label class="remove" for="removeBtn">remove all</label>
                             </div>
                         </b-card-body>
                         </b-collapse>
@@ -48,7 +52,7 @@
                         <b-collapse id="accordion3" accordion="my-accordion" role="tabpanel">
                         <b-card-body>
                             <p class="card-text">
-                                I start closed because visible is false
+                                Coming soon!
                             </p>
                         </b-card-body>
                         </b-collapse>
@@ -64,16 +68,12 @@
     import ToggleSideNav from './../Navigation/ToggleSideNav.vue'
     import TextField from './../FormComponents/TextField.vue'
     import RadioButtons from './../FormComponents/RadioButtons.vue'
+    import { clearAllFavoritesBus } from './../../main.js'
     import {initSearch} from './../../main.js'
     import {isResultsBus} from './../../main.js'
     import {clearSearchBus} from './../../main.js'
     export default {
         name: 'sidenav',
-        data () {
-            return {
-           
-            }
-        },
         components: {
             ToggleSideNav,
             Dropdown,
@@ -96,6 +96,11 @@
                 var queryterm = this.$store.state.queryTerm
                 var querytotal = this.$store.state.queryTotal
                 initSearch.$emit('init',{statecode, queryterm, querytotal})
+            },
+            removeAllFavorites(){
+                confirm("Are you sure you want to remove all favorites?");
+                this.$store.dispatch('removeAllFavorites')
+                clearAllFavoritesBus.$emit('clear');
             },
             clear(){
                this.$store.state.clearSearch;
@@ -126,6 +131,9 @@
             open () {
                 return this.$store.state.sidebarOpen
             },
+            totalFavorites() {
+                return this.$store.state.selectedParks.length;
+            }
            
         },
         watch: {
@@ -140,6 +148,8 @@
     }
 </script>
 <style lang="scss">
+    $color1: #fff;
+    $color2: #1c7e42;
     .tab-icon{
         height:25px;
         width:auto;
@@ -147,6 +157,26 @@
         margin-right:10px;
         position:relative;
         margin-top:-3px;
+    }
+    .removeBtn{
+        width:1.3em;
+        height:1.3em;
+        background-color:$color1;
+        cursor:pointer;
+        border:1px solid $color2;
+        border-radius:3px;
+        margin-top:25px;
+        display:inline-block;
+    }
+    label.remove{
+        display:inline-block;
+        font-family: 'Open Sans', sans-serif !important;
+        font-weight:700 !important;
+        font-size:12px !important;
+        color:#fff;
+        position:relative;
+        top:-7px;
+        left:3px;
     }
     .clear{
         margin-top:15px;
