@@ -8,7 +8,7 @@ export default {
   name: 'maps',
   data () {
     return {
-     apiKey=AIzaSyBJqIS46ov6sW2DEo2ZsYQzASVxh6gDt6I
+     apiKey:null
     }
   },
   computed:{
